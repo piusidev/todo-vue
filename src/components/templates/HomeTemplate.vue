@@ -1,10 +1,17 @@
-<script setup lang="ts">
-import HelloWorld from '../../atoms/Hello/index.vue';
+<script lang="ts">
+import HelloWorld from 'atoms/HelloWorld.vue';
+import api from '../../services/api';
 
 export default {
   name: 'HomeTemplate',
   components: {
     HelloWorld,
+  },
+  created() {
+    const resp = api.get('/tasks');
+    resp.then((data) => {
+      console.log(data.data);
+    });
   },
 };
 </script>

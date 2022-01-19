@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import HomeTemplate from './components/templates/Home/index.vue';
+<script lang="ts">
+import HomeTemplate from 'templates/HomeTemplate.vue';
 
 export default {
   name: 'App',
