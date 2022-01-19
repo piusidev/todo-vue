@@ -1,4 +1,4 @@
-<script>
+<script setup lang="ts">
 import HomeTemplate from './components/templates/Home/index.vue';
 
 export default {

@@ -1,4 +1,4 @@
-<script>
+<script setup lang="ts">
 import HelloWorld from '../../atoms/Hello/index.vue';
 
 export default {
