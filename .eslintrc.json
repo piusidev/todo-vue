@@ -6,28 +6,16 @@
   "extends": [
     "eslint:recommended",
     "plugin:vue/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
   "plugins": [
-    "@typescript-eslint",
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": ["error", {
+      "usePrettierrc": true
+    }]
   },
-  "parser": "vue-eslint-parser",
-  "parserOptions": {
-    "parser": {
-      "ts": "@typescript-eslint/parser",
-      "js": "@typescript-eslint/parser",
-      "<template>": "espree"
-    }
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
-  }
+  "parser": "vue-eslint-parser"
 }

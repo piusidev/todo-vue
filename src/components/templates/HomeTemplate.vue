@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import HelloWorld from 'atoms/HelloWorld.vue';
 import api from '../../services/api';
 
