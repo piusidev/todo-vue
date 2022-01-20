@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue src",
     "lint:fix": "npm run lint -- --fix"
@@ -20,7 +20,6 @@
     "eslint-plugin-vue": "^8.3.0",
     "prettier": "2.5.1",
     "vite": "^2.7.2",
-    "vue-eslint-parser": "^8.0.1",
-    "vue-tsc": "^0.29.8"
+    "vue-eslint-parser": "^8.0.1"
   }
 }
