@@ -1,11 +1,13 @@
 <template>
-  <section class="list">
-    <div v-for="todo in todos" :key="todo.id">
-      <todo-item
-        :todo-id="todo.id"
-        :title="todo.title"
-        :done="todo.completed"
-      />
+  <section class="fade">
+    <div class="list">
+      <div v-for="todo in todos" :key="todo.id">
+        <todo-item
+          :todo-id="todo.id"
+          :title="todo.title"
+          :done="todo.completed"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -32,11 +34,17 @@ export default {
 </script>
 
 <style>
+.fade {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .list {
   width: 100%;
-  max-height: 80vh;
+  height: 100%;
 
-  padding: 1rem;
+  padding: 5rem 1rem;
 
   display: flex;
   flex-direction: column;
@@ -45,15 +53,25 @@ export default {
   overflow-y: scroll;
 }
 
-/* .list:before {
+.fade:after {
   position: absolute;
   content: '';
   width: 100%;
-  height: 50%;
+  height: 10%;
+  left: 0;
+  top: 0;
+  background: linear-gradient(180deg, var(--background) 70%, transparent 90%);
+}
+
+.fade:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 10%;
   left: 0;
   bottom: 0;
-  background: linear-gradient(0deg, var(--background) 30%, transparent 70%);
-} */
+  background: linear-gradient(0deg, var(--background) 70%, transparent 90%);
+}
 
 .list::-webkit-scrollbar {
   width: 12px;
@@ -61,6 +79,7 @@ export default {
 
 .list::-webkit-scrollbar-track {
   background: none;
+  margin: 5rem;
 }
 
 .list::-webkit-scrollbar-thumb {
