@@ -1,6 +1,6 @@
 <template>
   <div class="todo">
-    <input type="checkbox" />
+    <input type="checkbox" :checked="done" />
     <h3>{{ title }}</h3>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
       type: String,
       required: true,
       default: '',
+    },
+    done: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 };

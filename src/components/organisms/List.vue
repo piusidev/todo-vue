@@ -1,7 +1,7 @@
 <template>
   <section class="list">
     <div v-for="todo in todos" :key="todo.id">
-      <todo-item :title="todo.title" />
+      <todo-item :title="todo.title" :done="todo.completed" />
     </div>
   </section>
 </template>
@@ -32,7 +32,7 @@ export default {
   width: 100%;
   max-height: 70vh;
 
-  padding-right: 1rem;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
