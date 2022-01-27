@@ -1,28 +1,21 @@
 <script>
-import HelloWorld from 'atoms/HelloWorld.vue';
-import api from '../../services/api';
+import TodoList from '@/components/organisms/List.vue';
 
 export default {
   name: 'HomeTemplate',
   components: {
-    HelloWorld,
-  },
-  created() {
-    const resp = api.get('/tasks');
-    resp.then((data) => {
-      console.log(data.data);
-    });
+    TodoList,
   },
 };
 </script>
 
 <template>
   <div class="home">
-    <hello-world />
+    <todo-list />
   </div>
 </template>
 
-<style scoped>
+<style>
 .home {
   display: flex;
   margin: 0 auto;
@@ -31,7 +24,7 @@ export default {
   align-items: center;
   justify-content: center;
 
-  width: 100vw;
+  max-width: 600px;
   height: 100vh;
 }
 </style>
