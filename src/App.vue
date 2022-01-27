@@ -27,6 +27,14 @@ body {
   font-size: 100%;
   list-style-type: none;
   background: var(--background);
+  backdrop-filter: blur(1rem);
+  z-index: 0;
+}
+
+input,
+button {
+  outline: none;
+  border: none;
 }
 
 #app {
@@ -36,8 +44,12 @@ body {
 }
 
 :root {
-  --background: #e6e6ec;
+  --background: #ebecf0;
+  --details: rgba(224, 224, 230, 0.9);
+
   --white: #ffffff;
+  --shadow: 0 12px 24px rgb(0 0 0 / 2%);
+
   --error: #c50000;
   --success: #50fa7b;
   --warning: #f5a623;

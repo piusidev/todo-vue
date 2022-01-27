@@ -30,15 +30,15 @@ export default {
 <style scoped>
 .todo {
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
 
   background: var(--white);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
 
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 12px 24px rgb(0 0 0 / 2%);
+  box-shadow: var(--shadow);
 }
 
 input[type='checkbox'] {

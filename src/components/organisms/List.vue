@@ -44,7 +44,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  padding: 5rem 1rem;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -57,20 +57,20 @@ export default {
   position: absolute;
   content: '';
   width: 100%;
-  height: 10%;
+  height: 1rem;
   left: 0;
   top: 0;
-  background: linear-gradient(180deg, var(--background) 70%, transparent 90%);
+  background: linear-gradient(180deg, var(--background) 10%, transparent 90%);
 }
 
 .fade:before {
   position: absolute;
   content: '';
   width: 100%;
-  height: 10%;
+  height: 1rem;
   left: 0;
   bottom: 0;
-  background: linear-gradient(0deg, var(--background) 70%, transparent 90%);
+  background: linear-gradient(0deg, var(--background) 10%, transparent 90%);
 }
 
 .list::-webkit-scrollbar {
@@ -79,12 +79,12 @@ export default {
 
 .list::-webkit-scrollbar-track {
   background: none;
-  margin: 5rem;
+  margin: 1rem;
 }
 
 .list::-webkit-scrollbar-thumb {
-  background: var(--white);
-  box-shadow: inset 0 12px 24px rgb(0 0 0 / 2%);
+  background: var(--details);
+  box-shadow: inset var(--shadow);
 
   border-radius: 20px;
   border: none;
