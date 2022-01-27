@@ -1,7 +1,11 @@
 <template>
   <section class="list">
     <div v-for="todo in todos" :key="todo.id">
-      <todo-item :title="todo.title" :done="todo.completed" />
+      <todo-item
+        :todo-id="todo.id"
+        :title="todo.title"
+        :done="todo.completed"
+      />
     </div>
   </section>
 </template>
@@ -30,7 +34,7 @@ export default {
 <style>
 .list {
   width: 100%;
-  max-height: 70vh;
+  max-height: 80vh;
 
   padding: 1rem;
 

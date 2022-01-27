@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
-    <input type="checkbox" :checked="done" />
-    <h3>{{ title }}</h3>
+    <input :id="todoId" type="checkbox" name="status" :checked="done" />
+    <label :for="todoId">{{ title }}</label>
   </div>
 </template>
 
@@ -9,6 +9,10 @@
 export default {
   name: 'TodoItem',
   props: {
+    todoId: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
