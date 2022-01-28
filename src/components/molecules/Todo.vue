@@ -1,13 +1,34 @@
 <template>
   <div class="todo" :class="{ 'todo-done': currentTodo.completed }">
-    <input
-      :id="currentTodo.id"
-      type="checkbox"
-      name="status"
-      :checked="currentTodo.completed"
-      @change="handleStatus()"
-    />
-    <label :for="currentTodo.id">{{ currentTodo.title }}</label>
+    <div class="todo-main">
+      <input
+        :id="currentTodo.id"
+        type="checkbox"
+        name="status"
+        :checked="currentTodo.completed"
+        @change="handleStatus()"
+      />
+      <label :for="currentTodo.id">{{ currentTodo.title }}</label>
+      <button
+        class="todo-expand"
+        :class="{ 'todo-expand__open': isExpanded }"
+        @click="openTodo"
+      >
+        <img src="../../assets/icons/angle-right.svg" />
+      </button>
+    </div>
+    <div
+      class="todo-content"
+      :class="isExpanded ? 'todo-content__open' : 'todo-content__closed'"
+    >
+      <div>
+        <label>Description</label>
+        <textarea v-model="currentTodo.description" rows="3" />
+      </div>
+      <div>
+        <span>{{ date }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,6 +46,7 @@ export default {
           title: '',
           description: '',
           completed: false,
+          created_at: '',
         };
       },
       id: {
@@ -47,12 +69,28 @@ export default {
         required: true,
         default: false,
       },
+      created_at: {
+        type: String,
+        required: true,
+        default: '',
+      },
     },
   },
   data() {
     return {
       currentTodo: this.todo,
+      isExpanded: false,
     };
+  },
+  computed: {
+    date() {
+      const [day, month] = this.parseDate();
+
+      return `Created at ${day}, ${month}`;
+    },
+  },
+  created() {
+    this.parseDate();
   },
   methods: {
     updateTodo() {
@@ -62,6 +100,18 @@ export default {
       const status = this.currentTodo.completed;
       this.currentTodo.completed = !status;
       await this.updateTodo();
+    },
+    openTodo() {
+      this.isExpanded = !this.isExpanded;
+    },
+    parseDate() {
+      const date = new Date(this.currentTodo.created_at);
+      const day = date.getDate();
+      const month = date
+        .toLocaleString('default', { month: 'long' })
+        .substring(0, 3);
+
+      return [month, day];
     },
   },
 };
@@ -75,9 +125,6 @@ export default {
   background: var(--white);
   border-radius: 1rem;
 
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   box-shadow: var(--shadow);
 }
 
@@ -85,8 +132,85 @@ export default {
   background: var(--white);
 }
 
-.todo-done label {
+.todo-done > div:nth-child(1) > label {
   text-decoration: line-through;
+}
+
+.todo-main {
+  display: grid;
+  grid-template-columns: 1fr 18fr 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.todo-expand {
+  width: 1rem;
+  cursor: pointer;
+  background: none;
+
+  transition: all 150ms ease-in-out;
+}
+
+.todo-expand__open {
+  transform: rotate(90deg);
+}
+
+.todo-content__closed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+
+  animation: fadeOut 300ms ease-in-out;
+}
+
+.todo-content__open {
+  max-height: 500px;
+  padding: 1rem 0;
+
+  animation: fadeIn 300ms ease-in-out;
+}
+
+.todo-content {
+  width: 100%;
+
+  transition: all 300ms ease-in-out;
+}
+
+.todo-content div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+}
+
+.todo-content div:nth-child(2) {
+  text-align: right;
+  padding: 1rem 0 0;
+}
+
+.todo-content label,
+.todo-content span {
+  font-weight: 800;
+  color: var(--text-alt);
+}
+
+.todo-content textarea {
+  background: var(--details);
+
+  font-size: 1rem;
+  padding: 1rem;
+
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+
+  resize: none;
+
+  transition: all 300ms ease-in-out;
+}
+
+.todo-content textarea:focus {
+  box-shadow: var(--shadow-md);
+  background: var(--background);
 }
 
 input[type='checkbox'] {
@@ -122,10 +246,28 @@ input[type='checkbox']::before {
   border: 5px solid var(--success);
 
   transform: scale(0);
-  transition: all 120ms ease-in-out;
+  transition: all 300ms ease-in-out;
 }
 
 input[type='checkbox']:checked::before {
   transform: scale(1);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

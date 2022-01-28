@@ -32,12 +32,14 @@ body {
 }
 
 input,
-button {
+button,
+textarea {
   outline: none;
   border: none;
 }
 
-#app {
+*,
+body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,8 +54,10 @@ button {
 
   --white: #ffffff;
   --shadow: 0 12px 24px rgb(0 0 0 / 2%);
+  --shadow-md: 0 12px 24px rgb(0 0 0 / 5%);
   --shadow-xl: 0 8px 8px rgb(0 0 0 / 10%);
 
+  --active: #0071ff;
   --error: #c50000;
   --success: #50fa7b;
   --warning: #f5a623;
