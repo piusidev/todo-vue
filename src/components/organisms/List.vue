@@ -1,5 +1,5 @@
 <template>
-  <section class="fade">
+  <section class="fade" :style="`height:${height}`">
     <div class="list">
       <div v-for="todo in todos" :key="todo.id">
         <todo-item
@@ -20,6 +20,13 @@ export default {
   name: 'TodoList',
   components: {
     TodoItem,
+  },
+  props: {
+    height: {
+      type: String,
+      required: false,
+      default: '100%',
+    },
   },
   data() {
     return {
@@ -74,19 +81,6 @@ export default {
 }
 
 .list::-webkit-scrollbar {
-  width: 12px;
-}
-
-.list::-webkit-scrollbar-track {
-  background: none;
-  margin: 1rem;
-}
-
-.list::-webkit-scrollbar-thumb {
-  background: var(--details);
-  box-shadow: inset var(--shadow);
-
-  border-radius: 20px;
-  border: none;
+  display: none;
 }
 </style>

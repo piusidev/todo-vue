@@ -12,30 +12,34 @@ export default {
 </script>
 
 <template>
-  <div class="home">
-    <todo-input />
-    <div class="teste">
-      <todo-list />
+  <div class="container">
+    <div class="home">
+      <todo-input />
+      <todo-list height="500px" />
     </div>
   </div>
 </template>
 
 <style>
-.home {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+.container {
   padding: 2rem;
 
-  align-items: center;
-  justify-content: center;
-
-  max-width: 600px;
+  width: 100vw;
   height: 100vh;
 }
 
-.teste {
+.home {
   width: 100%;
-  height: 70%;
+  height: 100%;
+
+  max-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  align-items: center;
+  justify-content: center;
 }
 </style>
