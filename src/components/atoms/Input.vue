@@ -75,7 +75,10 @@ input {
 
 input:focus {
   background: var(--white);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-xl);
+
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(101%);
 }
 
 input:disabled {

@@ -49,6 +49,7 @@ button {
 
   --white: #ffffff;
   --shadow: 0 12px 24px rgb(0 0 0 / 2%);
+  --shadow-xl: 0 8px 8px rgb(0 0 0 / 10%);
 
   --error: #c50000;
   --success: #50fa7b;

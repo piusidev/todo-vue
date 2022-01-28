@@ -1,5 +1,5 @@
 <template>
-  <div class="todo">
+  <div class="todo" :class="{ 'todo-done': done }">
     <input :id="todoId" type="checkbox" name="status" :checked="done" />
     <label :for="todoId">{{ title }}</label>
   </div>
@@ -39,6 +39,14 @@ export default {
   align-items: center;
   gap: 1rem;
   box-shadow: var(--shadow);
+}
+
+.todo-done {
+  background: var(--white);
+}
+
+.todo-done label {
+  text-decoration: line-through;
 }
 
 input[type='checkbox'] {
