@@ -47,6 +47,9 @@ button {
   --background: #ebecf0;
   --details: rgba(224, 224, 230, 0.9);
 
+  --text: #ccc;
+  --text-alt: #9999;
+
   --white: #ffffff;
   --shadow: 0 12px 24px rgb(0 0 0 / 2%);
   --shadow-xl: 0 8px 8px rgb(0 0 0 / 10%);
