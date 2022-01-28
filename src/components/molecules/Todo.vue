@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     date() {
-      const [day, month] = this.parseDate();
+      const { day, month } = this.parseDate();
 
       return `Created at ${day}, ${month}`;
     },
@@ -111,7 +111,7 @@ export default {
         .toLocaleString('default', { month: 'long' })
         .substring(0, 3);
 
-      return [month, day];
+      return { day, month };
     },
   },
 };
@@ -148,7 +148,7 @@ export default {
   cursor: pointer;
   background: none;
 
-  transition: all 150ms ease-in-out;
+  transition: var(--transition);
 }
 
 .todo-expand__open {
@@ -173,7 +173,7 @@ export default {
 .todo-content {
   width: 100%;
 
-  transition: all 300ms ease-in-out;
+  transition: var(--transition);
 }
 
 .todo-content div:nth-child(1) {
@@ -205,7 +205,7 @@ export default {
 
   resize: none;
 
-  transition: all 300ms ease-in-out;
+  transition: var(--transition);
 }
 
 .todo-content textarea:focus {
@@ -227,26 +227,28 @@ input[type='checkbox'] {
   display: grid;
   place-content: center;
 
-  transition: all 120ms ease-in-out;
+  transition: var(--transition);
 }
 
 input[type='checkbox']:checked {
-  background: none;
+  background: var(--black);
 }
 
 input[type='checkbox']::before {
   content: '';
 
-  box-shadow: 0 12px 24px rgb(0 0 0 / 2%);
+  box-shadow: var(--shadow);
 
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 0.8rem;
+  height: 0.8em;
 
-  border-radius: 100%;
-  border: 5px solid var(--success);
+  border-radius: 0.3rem;
+  background: var(--white);
+
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 
   transform: scale(0);
-  transition: all 300ms ease-in-out;
+  transition: var(--transition);
 }
 
 input[type='checkbox']:checked::before {

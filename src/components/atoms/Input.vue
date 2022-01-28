@@ -70,7 +70,7 @@ input {
   background: var(--details);
   backdrop-filter: blur(1rem);
 
-  transition: all 300ms ease-in-out;
+  transition: var(--transition);
 }
 
 input:focus {

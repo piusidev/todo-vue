@@ -53,9 +53,13 @@ body {
   --text-alt: #9999;
 
   --white: #ffffff;
+  --black: #000000;
+
   --shadow: 0 12px 24px rgb(0 0 0 / 2%);
   --shadow-md: 0 12px 24px rgb(0 0 0 / 5%);
   --shadow-xl: 0 8px 8px rgb(0 0 0 / 10%);
+
+  --transition: all 300ms ease-in-out;
 
   --active: #0071ff;
   --error: #c50000;
