@@ -1,27 +1,67 @@
 <template>
-  <div class="todo" :class="{ 'todo-done': done }">
-    <input :id="todoId" type="checkbox" name="status" :checked="done" />
-    <label :for="todoId">{{ title }}</label>
+  <div class="todo" :class="{ 'todo-done': currentTodo.completed }">
+    <input
+      :id="currentTodo.id"
+      type="checkbox"
+      name="status"
+      :checked="currentTodo.completed"
+      @change="handleStatus()"
+    />
+    <label :for="currentTodo.id">{{ currentTodo.title }}</label>
   </div>
 </template>
 
 <script>
+import api from '@/services/api';
+
 export default {
   name: 'TodoItem',
   props: {
-    todoId: {
-      type: String,
-      required: true,
+    todo: {
+      type: Object,
+      default() {
+        return {
+          id: '',
+          title: '',
+          description: '',
+          completed: false,
+        };
+      },
+      id: {
+        type: String,
+        required: true,
+        default: '',
+      },
+      title: {
+        type: String,
+        required: true,
+        default: '',
+      },
+      description: {
+        type: String,
+        required: true,
+        default: '',
+      },
+      completed: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
     },
-    title: {
-      type: String,
-      required: true,
-      default: '',
+  },
+  data() {
+    return {
+      currentTodo: this.todo,
+    };
+  },
+  methods: {
+    updateTodo() {
+      return api.put(`/tasks/${this.currentTodo.id}`, this.currentTodo);
     },
-    done: {
-      type: Boolean,
-      required: false,
-      default: false,
+    async handleStatus() {
+      const status = this.currentTodo.completed;
+      this.currentTodo.completed = !status;
+      await this.updateTodo();
     },
   },
 };

@@ -2,11 +2,7 @@
   <section class="fade" :style="`height:${height}`">
     <div class="list">
       <div v-for="todo in todos" :key="todo.id">
-        <todo-item
-          :todo-id="todo.id"
-          :title="todo.title"
-          :done="todo.completed"
-        />
+        <todo-item :todo="todo" />
       </div>
     </div>
   </section>
