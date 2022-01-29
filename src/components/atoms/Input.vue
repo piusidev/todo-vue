@@ -1,6 +1,8 @@
 <script>
 import api from '@/services/api';
 
+import { todos, notify } from '@/store';
+
 export default {
   name: 'TodoInput',
   props: {
@@ -16,6 +18,8 @@ export default {
         title: '',
         description: ' ',
       },
+      todos,
+      notify,
     };
   },
   methods: {
@@ -23,7 +27,12 @@ export default {
       this.handleDisabled();
 
       const resp = api.post('/tasks', this.todo);
-      resp.then(() => {
+      resp.then((resp) => {
+        this.todos.addTodo(resp.data);
+        this.notify.send({
+          type: 'success',
+          message: 'Todo created successfully',
+        });
         this.handleDisabled();
         this.resetInput();
       });

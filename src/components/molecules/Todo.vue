@@ -105,7 +105,10 @@ export default {
         });
       } catch (err) {
         console.error(err);
-        this.notify.send('error', 'Todo update failed');
+        this.notify.send({
+          type: 'error',
+          message: 'Todo updated failed',
+        });
       }
     },
     async handleStatus() {

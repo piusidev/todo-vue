@@ -1,7 +1,7 @@
 <template>
   <section class="fade" :style="`height:${height}`">
     <div class="list">
-      <div v-for="todo in todos" :key="todo.id">
+      <div v-for="todo in todos.state.list" :key="todo.id">
         <todo-item :todo="todo" />
       </div>
     </div>
@@ -10,7 +10,8 @@
 
 <script>
 import TodoItem from '@/components/molecules/Todo.vue';
-import api from '../../services/api';
+
+import { todos } from '@/store';
 
 export default {
   name: 'TodoList',
@@ -26,12 +27,16 @@ export default {
   },
   data() {
     return {
-      todos: [],
+      todos,
     };
   },
+  watch: {
+    todos(value) {
+      console.log(value);
+    },
+  },
   async created() {
-    const resp = await api.get('/tasks');
-    this.todos = await resp.data;
+    await this.todos.getTodos();
   },
 };
 </script>
