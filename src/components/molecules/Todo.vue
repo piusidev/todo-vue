@@ -16,10 +16,14 @@
     >
       <div>
         <label>Description</label>
-        <textarea v-model="currentTodo.description" rows="3" />
+        <textarea
+          v-model="currentTodo.description"
+          rows="3"
+          @keyup.enter="updateTodo"
+        />
       </div>
       <div>
-        <span>{{ date }}</span>
+        <span>{{ currentDate }}</span>
       </div>
     </div>
   </div>
@@ -28,6 +32,8 @@
 <script>
 import CheckButton from '@/components/atoms/CheckButton.vue';
 import AccordionButton from '@/components/atoms/AccordionButton.vue';
+
+import store from '@/store';
 import api from '@/services/api';
 
 export default {
@@ -79,31 +85,37 @@ export default {
     return {
       currentTodo: this.todo,
       isExpanded: false,
+      store,
     };
   },
   computed: {
-    date() {
-      const { day, month } = this.parseDate();
+    currentDate() {
+      const { day, month } = this.getDate();
 
       return `Created at ${day}, ${month}`;
     },
   },
-  created() {
-    this.parseDate();
-  },
   methods: {
-    updateTodo() {
-      return api.put(`/tasks/${this.currentTodo.id}`, this.currentTodo);
+    async updateTodo() {
+      try {
+        await api.put(`/tasks/${this.currentTodo.id}`, this.currentTodo);
+        this.store.notify({
+          type: 'success',
+          message: 'Todo updated successfully',
+        });
+      } catch (err) {
+        console.error(err);
+        this.store.notify('error', 'Todo update failed');
+      }
     },
-    async handleStatus() {
-      const status = this.currentTodo.completed;
-      this.currentTodo.completed = !status;
-      await this.updateTodo();
+    handleStatus() {
+      this.currentTodo.completed = !this.currentTodo.completed;
+      this.updateTodo();
     },
     handleExpanded() {
       this.isExpanded = !this.isExpanded;
     },
-    parseDate() {
+    getDate() {
       const date = new Date(this.currentTodo.created_at);
       const day = date.getDate();
       const month = date
@@ -198,6 +210,12 @@ export default {
 .todo-content textarea:focus {
   box-shadow: var(--shadow-md);
   background: var(--background);
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
 }
 
 @keyframes fadeOut {

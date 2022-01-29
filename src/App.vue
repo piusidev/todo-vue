@@ -1,16 +1,21 @@
 <script lang="ts">
 import HomeTemplate from '@/components/templates/HomeTemplate.vue';
+import NotifyToast from '@/components/atoms/NotifyToast.vue';
 
 export default {
   name: 'App',
   components: {
     HomeTemplate,
+    NotifyToast,
   },
 };
 </script>
 
 <template>
-  <home-template />
+  <main>
+    <home-template />
+    <notify-toast />
+  </main>
 </template>
 
 <style>
@@ -29,6 +34,7 @@ body {
   background: var(--background);
   backdrop-filter: blur(1rem);
   z-index: 0;
+  overflow: hidden;
 }
 
 input,
