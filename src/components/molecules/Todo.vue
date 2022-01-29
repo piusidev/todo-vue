@@ -33,7 +33,7 @@
 import CheckButton from '@/components/atoms/CheckButton.vue';
 import AccordionButton from '@/components/atoms/AccordionButton.vue';
 
-import store from '@/store';
+import { notify } from '@/store';
 import api from '@/services/api';
 
 export default {
@@ -85,7 +85,7 @@ export default {
     return {
       currentTodo: this.todo,
       isExpanded: false,
-      store,
+      notify,
     };
   },
   computed: {
@@ -99,18 +99,18 @@ export default {
     async updateTodo() {
       try {
         await api.put(`/tasks/${this.currentTodo.id}`, this.currentTodo);
-        this.store.notify({
+        this.notify.send({
           type: 'success',
           message: 'Todo updated successfully',
         });
       } catch (err) {
         console.error(err);
-        this.store.notify('error', 'Todo update failed');
+        this.notify.send('error', 'Todo update failed');
       }
     },
-    handleStatus() {
+    async handleStatus() {
+      await this.updateTodo();
       this.currentTodo.completed = !this.currentTodo.completed;
-      this.updateTodo();
     },
     handleExpanded() {
       this.isExpanded = !this.isExpanded;

@@ -1,5 +1,4 @@
 <script>
-import store from '@/store';
 import api from '@/services/api';
 
 export default {
@@ -12,19 +11,12 @@ export default {
   },
   data() {
     return {
-      message: '',
       disabled: false,
+      todo: {
+        title: '',
+        description: ' ',
+      },
     };
-  },
-  computed: {
-    todo() {
-      return store.state.todo;
-    },
-  },
-  watch: {
-    message(value) {
-      store.state.todo.title = value;
-    },
   },
   methods: {
     createTodo() {
@@ -37,7 +29,7 @@ export default {
       });
     },
     resetInput() {
-      this.message = '';
+      this.todo.title = '';
     },
     handleDisabled() {
       this.disabled = !this.disabled;
@@ -49,7 +41,7 @@ export default {
 <template>
   <div class="new-task">
     <input
-      v-model="message"
+      v-model="todo.title"
       :disabled="disabled"
       placeholder="Write a new task"
       @keyup.enter="createTodo"

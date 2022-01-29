@@ -1,19 +1,19 @@
 <template>
   <transition name="fade">
-    <div v-if="store.state.notify.isVisible" class="toast">
-      <span>{{ store.state.notify.message }}</span>
+    <div v-if="notify.state.isVisible" class="toast">
+      <span>{{ notify.state.message }}</span>
     </div>
   </transition>
 </template>
 
 <script>
-import store from '@/store';
+import { notify } from '@/store';
 
 export default {
   name: 'NotifyToast',
   data() {
     return {
-      store,
+      notify,
     };
   },
 };
