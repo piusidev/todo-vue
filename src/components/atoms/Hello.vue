@@ -16,9 +16,6 @@ export default {
       return this.getDate();
     },
   },
-  created() {
-    this.getDate();
-  },
   methods: {
     getGreetingsMessage() {
       const hours = new Date().getHours();
@@ -31,7 +28,7 @@ export default {
         return 'Good afternoon';
       }
 
-      return 'Good night';
+      return 'Good evening';
     },
     getDate() {
       const date = new Date();

@@ -1,21 +1,14 @@
 <template>
   <div class="todo" :class="{ 'todo-done': currentTodo.completed }">
     <div class="todo-main">
-      <input
+      <check-button
         :id="currentTodo.id"
-        type="checkbox"
-        name="status"
-        :checked="currentTodo.completed"
-        @change="handleStatus()"
+        :name="`status-${currentTodo.id}`"
+        :is-checked="currentTodo.completed"
+        :action="handleStatus"
       />
       <label :for="currentTodo.id">{{ currentTodo.title }}</label>
-      <button
-        class="todo-expand"
-        :class="{ 'todo-expand__open': isExpanded }"
-        @click="openTodo"
-      >
-        <img src="../../assets/icons/angle-right.svg" />
-      </button>
+      <accordion-button :is-open="isExpanded" :action="handleExpanded" />
     </div>
     <div
       class="todo-content"
@@ -33,10 +26,16 @@
 </template>
 
 <script>
+import CheckButton from '@/components/atoms/CheckButton.vue';
+import AccordionButton from '@/components/atoms/AccordionButton.vue';
 import api from '@/services/api';
 
 export default {
   name: 'TodoItem',
+  components: {
+    CheckButton,
+    AccordionButton,
+  },
   props: {
     todo: {
       type: Object,
@@ -101,7 +100,7 @@ export default {
       this.currentTodo.completed = !status;
       await this.updateTodo();
     },
-    openTodo() {
+    handleExpanded() {
       this.isExpanded = !this.isExpanded;
     },
     parseDate() {
@@ -141,18 +140,6 @@ export default {
   grid-template-columns: 1fr 18fr 1fr;
   align-items: center;
   gap: 1rem;
-}
-
-.todo-expand {
-  width: 1rem;
-  cursor: pointer;
-  background: none;
-
-  transition: var(--transition);
-}
-
-.todo-expand__open {
-  transform: rotate(90deg);
 }
 
 .todo-content__closed {
@@ -211,48 +198,6 @@ export default {
 .todo-content textarea:focus {
   box-shadow: var(--shadow-md);
   background: var(--background);
-}
-
-input[type='checkbox'] {
-  width: 1.2rem;
-  height: 1.2rem;
-
-  appearance: none;
-  cursor: pointer;
-  background: var(--background);
-
-  border: 0;
-  border-radius: 0.3rem;
-
-  display: grid;
-  place-content: center;
-
-  transition: var(--transition);
-}
-
-input[type='checkbox']:checked {
-  background: var(--black);
-}
-
-input[type='checkbox']::before {
-  content: '';
-
-  box-shadow: var(--shadow);
-
-  width: 0.8rem;
-  height: 0.8em;
-
-  border-radius: 0.3rem;
-  background: var(--white);
-
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-
-  transform: scale(0);
-  transition: var(--transition);
-}
-
-input[type='checkbox']:checked::before {
-  transform: scale(1);
 }
 
 @keyframes fadeOut {
