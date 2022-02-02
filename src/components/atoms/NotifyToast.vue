@@ -73,11 +73,11 @@ export default {
 
 @keyframes appear-in {
   from {
-    bottom: -10rem;
+    top: -10rem;
     opacity: 0;
   }
   to {
-    bottom: 0;
+    top: 0;
     opacity: 1;
   }
 }
