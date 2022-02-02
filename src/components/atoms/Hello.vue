@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { getDate } from '@/utils';
+
 export default {
   name: 'HelloWorld',
   computed: {
@@ -13,12 +15,14 @@ export default {
       return this.getGreetingsMessage();
     },
     todayIs() {
-      return this.getDate();
+      const { day, weekday, month } = getDate();
+
+      return `Its ${weekday}, ${month} ${day}`;
     },
   },
   methods: {
     getGreetingsMessage() {
-      const hours = new Date().getHours();
+      const { hours } = getDate();
 
       if (hours < 12) {
         return 'Good morning';
@@ -29,16 +33,6 @@ export default {
       }
 
       return 'Good evening';
-    },
-    getDate() {
-      const date = new Date();
-      const now = date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        day: '2-digit',
-        month: 'long',
-      });
-
-      return `It's ${now}`;
     },
   },
 };
