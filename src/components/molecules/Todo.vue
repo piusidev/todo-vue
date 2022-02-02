@@ -33,6 +33,7 @@
 import CheckButton from '@/components/atoms/CheckButton.vue';
 import AccordionButton from '@/components/atoms/AccordionButton.vue';
 
+import { getDate } from '@/utils';
 import { notify } from '@/store';
 import api from '@/services/api';
 
@@ -90,9 +91,9 @@ export default {
   },
   computed: {
     currentDate() {
-      const { day, month } = this.getDate();
+      const { day, month } = getDate(this.currentTodo.created_at);
 
-      return `Created at ${day}, ${month}`;
+      return `Created at ${month}, ${day}`;
     },
   },
   methods: {
@@ -117,15 +118,6 @@ export default {
     },
     handleExpanded() {
       this.isExpanded = !this.isExpanded;
-    },
-    getDate() {
-      const date = new Date(this.currentTodo.created_at);
-      const day = date.getDate();
-      const month = date
-        .toLocaleString('default', { month: 'long' })
-        .substring(0, 3);
-
-      return { day, month };
     },
   },
 };

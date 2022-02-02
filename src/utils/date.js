@@ -1,5 +1,5 @@
-export const getDate = () => {
-  const date = new Date();
+export const getDate = (timestamp) => {
+  const date = timestamp ? new Date(timestamp) : new Date();
   const hours = date.getHours();
   const day = date.getDate();
   const weekday = date.toLocaleString('default', { weekday: 'long' });
