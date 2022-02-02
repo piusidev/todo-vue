@@ -1,5 +1,8 @@
 <template>
-  <div class="todo" :class="{ 'todo-done': currentTodo.completed }">
+  <div
+    class="todo"
+    :class="{ 'todo-done': currentTodo.completed, 'todo-disabled': isDisabled }"
+  >
     <div class="todo-main">
       <check-button
         :id="currentTodo.id"
@@ -86,6 +89,7 @@ export default {
     return {
       currentTodo: this.todo,
       isExpanded: false,
+      isDisabled: false,
       notify,
     };
   },
@@ -98,23 +102,26 @@ export default {
   },
   methods: {
     async updateTodo() {
+      this.isDisabled = true;
       try {
         await api.put(`/tasks/${this.currentTodo.id}`, this.currentTodo);
         this.notify.send({
           type: 'success',
           message: 'Todo updated successfully',
         });
+        this.isDisabled = false;
       } catch (err) {
         console.error(err);
         this.notify.send({
           type: 'error',
           message: 'Todo updated failed',
         });
+        this.isDisabled = false;
       }
     },
-    async handleStatus() {
+    async handleStatus(event) {
+      this.currentTodo.completed = event.target.checked;
       await this.updateTodo();
-      this.currentTodo.completed = !this.currentTodo.completed;
     },
     handleExpanded() {
       this.isExpanded = !this.isExpanded;
@@ -132,6 +139,8 @@ export default {
   border-radius: 1rem;
 
   box-shadow: var(--shadow);
+
+  transition: var(--transition);
 }
 
 .todo-done {
@@ -140,6 +149,27 @@ export default {
 
 .todo-done > div:nth-child(1) > label {
   text-decoration: line-through;
+}
+
+.todo-disabled {
+  pointer-events: none;
+  position: relative;
+  opacity: 0.5;
+}
+
+.todo-disabled::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner 0.6s linear infinite;
 }
 
 .todo-main {
@@ -228,6 +258,12 @@ export default {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>

@@ -4,7 +4,7 @@
     type="checkbox"
     :name="name"
     :checked="isChecked"
-    @change="action()"
+    @change="action($event)"
   />
 </template>
 
